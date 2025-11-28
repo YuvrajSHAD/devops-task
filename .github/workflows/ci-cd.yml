@@ -38,15 +38,15 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/crud-frontend:latest
 
       # SSH deploy step will be enabled after EC2 is ready
-      # - name: Trigger remote deploy via SSH
-      #   uses: appleboy/ssh-action@v1.0.3
-      #   with:
-      #     host: ${{ secrets.SSH_HOST }}
-      #     username: ${{ secrets.SSH_USER }}
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     port: ${{ secrets.SSH_PORT }}
-      #     script: |
-      #       cd ${{ secrets.REMOTE_APP_PATH }} || exit 1
-      #       git pull origin main
-      #       docker compose pull
-      #       docker compose up -d --remove-orphans
+      - name: Trigger remote deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ${{ secrets.REMOTE_APP_PATH }} || exit 1
+            git pull origin main
+            docker compose pull
+            docker compose up -d --remove-orphans
